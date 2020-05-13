@@ -216,7 +216,7 @@ class CreateSubscriptionRequest extends AuthorizeRequest
         return self::$SUBSCRIPTION_OBJECT;
     }
 
-    public function getData($paymentMethodType = null)
+    public function getData($paymentMethodType = self::PAYMENT_METHOD_CREDIT_CARD)
     {
         $subscriptionId = $this->getSubscriptionId();
         $subscriptionReference = $this->getSubscriptionReference();
