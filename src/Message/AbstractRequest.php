@@ -2,14 +2,17 @@
 
 namespace Omnipay\Vindicia\Message;
 
+use Guzzle\Http\ClientInterface;
+use InvalidArgumentException;
+use Omnipay\Common\CreditCard;
 use Omnipay\Common\Exception\InvalidCreditCardException;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
-use Omnipay\Vindicia\TestableSoapClient;
-use Omnipay\Vindicia\VindiciaItemBag;
 use Omnipay\Vindicia\AttributeBag;
 use Omnipay\Vindicia\NameValue;
 use Omnipay\Vindicia\PriceBag;
-use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Vindicia\TestableSoapClient;
+use Omnipay\Vindicia\VindiciaItemBag;
 use PaymentGatewayLogger\Event\Constants;
 use PaymentGatewayLogger\Event\ErrorEvent;
 use PaymentGatewayLogger\Event\RequestEvent;
@@ -18,10 +21,6 @@ use SoapFault;
 use stdClass;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
-use Guzzle\Http\ClientInterface;
-use InvalidArgumentException;
-use Omnipay\Common\CreditCard;
-use Omnipay\Vindicia\NonStrippingCreditCard;
 
 /**
  * Vindicia Abstract Request
@@ -676,6 +675,58 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->setParameter('minChargebackProbability', $value);
     }
+
+	/**
+	 * Get AVS policy
+	 *
+	 * @return bool
+	 */
+    public function getIgnoreAvsPolicy()
+	{
+        if (is_null($this->getParameter('ignoreAvsPolicy'))) {
+            return false;
+        }
+
+        return $this->getParameter('ignoreAvsPolicy');
+	}
+
+	/**
+	 * Set AVS policy
+	 *
+	 * @param bool $value
+	 *
+	 * @return static
+	 */
+	public function setIgnoreAvsPolicy($value)
+	{
+		return $this->setParameter('ignoreAvsPolicy', $value);
+	}
+
+    /**
+     * Get CVN policy
+     *
+     * @return bool
+     */
+    public function getIgnoreCvnPolicy()
+    {
+        if (is_null($this->getParameter('ignoreCvnPolicy'))) {
+            return false;
+        }
+
+        return $this->getParameter('ignoreCvnPolicy');
+    }
+
+	/**
+	 * Set CVN policy
+	 *
+	 * @param bool $value
+	 *
+	 * @return static
+	 */
+	public function setIgnoreCvnPolicy($value)
+	{
+		return $this->setParameter('ignoreCvnPolicy', $value);
+	}
 
     /**
      * Get the redirect url that will be used in the case of a cancel from PayPal's site.
