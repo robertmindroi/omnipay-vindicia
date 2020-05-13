@@ -2,8 +2,8 @@
 
 namespace Omnipay\Vindicia\Message;
 
-use stdClass;
 use Omnipay\Common\Exception\InvalidRequestException;
+use stdClass;
 
 /**
  * Creates or updates a subscription (recurring payment), depending on whether it's
@@ -290,18 +290,15 @@ class CreateSubscriptionRequest extends AuthorizeRequest
             $subscription->paymentMethod = $this->buildPaymentMethod($paymentMethodType);
         }
 
-        return array(
-            'autobill' => $subscription,
-            'action' => $this->getFunction(),
-            'immediateAuthFailurePolicy' => $this->getRetryIfInvalidPaymentMethod()
-                                            ? 'putAutoBillInRetryCycle'
-                                            : 'putAutoBillInRetryCycleIfPaymentMethodIsValid',
-            'validateForFuturePayment' => $this->getShouldAuthorize() ?: false,
-            'ignoreAvsPolicy' => $this->getParameter('ignoreAvsPolicy') ? $this->getParameter('ignoreAvsPolicy') : false,
-            'ignoreCvnPolicy' => $this->getParameter('ignoreCvnPolicy') ? $this->getParameter('ignoreCvnPolicy') : false,
-            'campaignCode' => $this->getParameter('coupon') ? $this->getParameter('coupon') : '',
-            'dryrun' => false,
-            'minChargebackProbability' => $this->getMinChargebackProbability()
-        );
+        return array_merge([
+            'autobill'                   => $subscription,
+            'action'                     => $this->getFunction(),
+            'immediateAuthFailurePolicy' => $this->getRetryIfInvalidPaymentMethod() ? 'putAutoBillInRetryCycle' : 'putAutoBillInRetryCycleIfPaymentMethodIsValid',
+            'validateForFuturePayment'   => $this->getShouldAuthorize() ?: false,
+            'ignoreAvsPolicy'            => $this->getParameter('ignoreAvsPolicy') ? $this->getParameter('ignoreAvsPolicy') : false,
+            'ignoreCvnPolicy'            => $this->getParameter('ignoreCvnPolicy') ? $this->getParameter('ignoreCvnPolicy') : false,
+            'dryrun'                     => false,
+            'minChargebackProbability'   => $this->getMinChargebackProbability(),
+        ], ($this->getParameter('coupon') ? ['campaignCode' => $this->getParameter('coupon')] : []));
     }
 }
