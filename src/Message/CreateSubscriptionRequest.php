@@ -301,7 +301,6 @@ class CreateSubscriptionRequest extends AuthorizeRequest
             'ignoreCvnPolicy' => $this->getParameter('ignoreCvnPolicy'),
             'campaignCode' => null,
             'dryrun' => false,
-            'cancelReasonCode' => null,
             'minChargebackProbability' => $this->getMinChargebackProbability()
         );
     }

@@ -139,7 +139,6 @@ class HOACreateSubscriptionRequest extends AbstractHOARequest
             new NameValue('AutoBill_Update_ignoreCvnPolicy', $regularRequestData['ignoreCvnPolicy']),
             new NameValue('AutoBill_Update_campaignCode', $regularRequestData['campaignCode']),
             new NameValue('AutoBill_Update_dryrun', $regularRequestData['dryrun']),
-            new NameValue('AutoBill_Update_cancelReasonCode', $regularRequestData['cancelReasonCode']),
             new NameValue('AutoBill_Update_minChargebackProbability', $regularRequestData['minChargebackProbability'])
         );
     }
