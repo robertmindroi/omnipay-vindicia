@@ -299,7 +299,7 @@ class CreateSubscriptionRequest extends AuthorizeRequest
             'validateForFuturePayment' => $this->getShouldAuthorize() ?: false,
             'ignoreAvsPolicy' => $this->getParameter('ignoreAvsPolicy'),
             'ignoreCvnPolicy' => $this->getParameter('ignoreCvnPolicy'),
-            'campaignCode' => null,
+            'campaignCode' => $this->getParameter('coupon') ? $this->getParameter('coupon') : '',
             'dryrun' => false,
             'minChargebackProbability' => $this->getMinChargebackProbability()
         );

@@ -729,6 +729,26 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 	}
 
     /**
+     * Get coupon code
+     *
+     * @return null|string
+     */
+	public function getCoupon()
+    {
+        return $this->getParameter('coupon');
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return static
+     */
+    public function setCoupon($value)
+    {
+        return $this->setParameter('coupon', $value);
+    }
+
+    /**
      * Get the redirect url that will be used in the case of a cancel from PayPal's site.
      *
      * @return null|string
