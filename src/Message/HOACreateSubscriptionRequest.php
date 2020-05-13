@@ -129,17 +129,16 @@ class HOACreateSubscriptionRequest extends AbstractHOARequest
     {
         $regularRequestData = $this->regularRequest->getData();
 
-        return array(
-            new NameValue(
-                'AutoBill_Update_immediateAuthFailurePolicy',
-                $regularRequestData['immediateAuthFailurePolicy']
-            ),
+        return array_merge([
+            new NameValue('AutoBill_Update_immediateAuthFailurePolicy',
+                $regularRequestData['immediateAuthFailurePolicy']),
             new NameValue('AutoBill_Update_validateForFuturePayment', $regularRequestData['validateForFuturePayment']),
             new NameValue('AutoBill_Update_ignoreAvsPolicy', $regularRequestData['ignoreAvsPolicy']),
             new NameValue('AutoBill_Update_ignoreCvnPolicy', $regularRequestData['ignoreCvnPolicy']),
-            new NameValue('AutoBill_Update_campaignCode', $regularRequestData['campaignCode']),
             new NameValue('AutoBill_Update_dryrun', $regularRequestData['dryrun']),
-            new NameValue('AutoBill_Update_minChargebackProbability', $regularRequestData['minChargebackProbability'])
+            new NameValue('AutoBill_Update_minChargebackProbability', $regularRequestData['minChargebackProbability']),
+        ],
+            ($regularRequestData['campaignCode'] ? new NameValue('AutoBill_Update_campaignCode', $regularRequestData['campaignCode']) : [])
         );
     }
 }
