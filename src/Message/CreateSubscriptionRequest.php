@@ -297,8 +297,8 @@ class CreateSubscriptionRequest extends AuthorizeRequest
                                             ? 'putAutoBillInRetryCycle'
                                             : 'putAutoBillInRetryCycleIfPaymentMethodIsValid',
             'validateForFuturePayment' => $this->getShouldAuthorize() ?: false,
-            'ignoreAvsPolicy' => $this->getParameter('ignoreAvsPolicy'),
-            'ignoreCvnPolicy' => $this->getParameter('ignoreCvnPolicy'),
+            'ignoreAvsPolicy' => $this->getParameter('ignoreAvsPolicy') ? $this->getParameter('ignoreAvsPolicy') : false,
+            'ignoreCvnPolicy' => $this->getParameter('ignoreCvnPolicy') ? $this->getParameter('ignoreCvnPolicy') : false,
             'campaignCode' => $this->getParameter('coupon') ? $this->getParameter('coupon') : '',
             'dryrun' => false,
             'minChargebackProbability' => $this->getMinChargebackProbability()

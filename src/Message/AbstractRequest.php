@@ -683,10 +683,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 	 */
     public function getIgnoreAvsPolicy()
 	{
-        if (is_null($this->getParameter('ignoreAvsPolicy'))) {
-            return false;
-        }
-
         return $this->getParameter('ignoreAvsPolicy');
 	}
 
@@ -709,10 +705,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      */
     public function getIgnoreCvnPolicy()
     {
-        if (is_null($this->getParameter('ignoreCvnPolicy'))) {
-            return false;
-        }
-
         return $this->getParameter('ignoreCvnPolicy');
     }
 
